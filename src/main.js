@@ -166,6 +166,15 @@ function startBattle(config) {
     if (radioChatter) {
         radioChatter.clear();
     }
+    if (combatSystem) {
+        combatSystem.clear();
+    }
+    if (projectileSystem) {
+        projectileSystem.clear();
+    }
+    if (particleSystem) {
+        particleSystem.clear();
+    }
 
     // Set random space atmosphere for variety
     if (atmosphereSystem) {
