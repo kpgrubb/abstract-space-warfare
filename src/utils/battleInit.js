@@ -79,29 +79,30 @@ export function initializeBattle(config, renderer, engine) {
 /**
  * Create a randomized deployment zone for a team
  * This creates more interesting, asymmetric deployments
+ * Wider spread to prevent instant blobbing
  */
 function randomizeDeploymentZone(team, canvasWidth, canvasHeight, margin) {
     const isFriendly = team === 'friendly';
 
-    // Base position (left 25% for friendly, right 25% for enemy)
-    const baseXMin = isFriendly ? margin : canvasWidth * 0.70;
-    const baseXMax = isFriendly ? canvasWidth * 0.30 : canvasWidth - margin;
+    // Base position - wider zones (left 35% for friendly, right 35% for enemy)
+    // This gives more space between fleets initially
+    const baseXMin = isFriendly ? margin : canvasWidth * 0.60;
+    const baseXMax = isFriendly ? canvasWidth * 0.40 : canvasWidth - margin;
 
-    // Randomize vertical zone (don't always fill whole height)
-    // Pick a random "focus area" within the canvas height
-    const zoneHeight = canvasHeight * (0.4 + Math.random() * 0.4); // 40-80% of height
+    // Use more of the vertical space (70-95% of height)
+    const zoneHeight = canvasHeight * (0.7 + Math.random() * 0.25);
     const zoneYStart = margin + Math.random() * (canvasHeight - 2 * margin - zoneHeight);
 
     // Add some horizontal offset variation
-    const xOffset = (Math.random() - 0.5) * canvasWidth * 0.1;
+    const xOffset = (Math.random() - 0.5) * canvasWidth * 0.08;
 
     return {
         xMin: Math.max(margin, baseXMin + xOffset),
         xMax: Math.min(canvasWidth - margin, baseXMax + xOffset),
         yMin: zoneYStart,
         yMax: zoneYStart + zoneHeight,
-        // Random formation bias
-        formation: Math.random() < 0.5 ? 'clustered' : 'spread'
+        // Favor spread formation more often to reduce blobbing
+        formation: Math.random() < 0.3 ? 'clustered' : 'spread'
     };
 }
 
@@ -201,13 +202,13 @@ function deployClusteredFormation(ships, zone, team, engine) {
         cluster.ships.push(shipData);
     });
 
-    // Spawn ships in clusters
+    // Spawn ships in clusters (wider spread)
     clusters.forEach(cluster => {
         const clusterSize = cluster.ships.length;
         cluster.ships.forEach((shipData, i) => {
-            // Position within cluster with some spread
-            const angle = (i / clusterSize) * Math.PI * 2 + Math.random() * 0.5;
-            const radius = 30 + Math.random() * 40 + i * 8;
+            // Position within cluster with more spread to reduce blobbing
+            const angle = (i / clusterSize) * Math.PI * 2 + Math.random() * 0.8;
+            const radius = 50 + Math.random() * 70 + i * 12;
 
             let x = cluster.x + Math.cos(angle) * radius;
             let y = cluster.y + Math.sin(angle) * radius;
@@ -269,9 +270,9 @@ function deploySpreadFormation(ships, zone, team, engine) {
         // Y position spread across zone
         y = zone.yMin + yRange * ((col + 0.5) / cols);
 
-        // Add significant randomness for organic feel
-        x += (Math.random() - 0.5) * 60;
-        y += (Math.random() - 0.5) * 50;
+        // Add significant randomness for organic feel (increased spread)
+        x += (Math.random() - 0.5) * 100;
+        y += (Math.random() - 0.5) * 80;
 
         // Clamp to zone
         x = Math.max(zone.xMin, Math.min(zone.xMax, x));

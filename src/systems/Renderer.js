@@ -29,6 +29,9 @@ export class Renderer {
         // Handle window resize
         window.addEventListener('resize', () => this.resize());
 
+        // Resize callback for camera
+        this.onResize = null;
+
         console.log(`Renderer initialized: ${this.width}x${this.height}`);
     }
 
@@ -40,6 +43,11 @@ export class Renderer {
         this.height = window.innerHeight;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
+
+        // Notify camera of resize
+        if (this.onResize) {
+            this.onResize(this.width, this.height);
+        }
 
         console.log(`Canvas resized: ${this.width}x${this.height}`);
     }

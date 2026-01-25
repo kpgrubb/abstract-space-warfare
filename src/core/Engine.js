@@ -3,6 +3,8 @@
  * Handles initialization, update, render cycle using requestAnimationFrame
  */
 
+import { Camera } from './Camera.js';
+
 export class Engine {
     constructor(renderer) {
         this.renderer = renderer;
@@ -17,6 +19,9 @@ export class Engine {
         this.systems = [];
         this.customRenders = [];
 
+        // Camera for zoom/pan
+        this.camera = new Camera();
+
         // Bind the game loop to maintain context
         this.gameLoop = this.gameLoop.bind(this);
     }
@@ -30,7 +35,11 @@ export class Engine {
         // Initialize renderer
         this.renderer.init();
 
-        // TODO: Initialize game systems (Physics, Combat, AI, etc.)
+        // Initialize camera
+        const canvas = document.getElementById('battleCanvas');
+        if (canvas) {
+            this.camera.init(canvas);
+        }
 
         console.log('Engine initialized successfully');
     }
@@ -86,6 +95,9 @@ export class Engine {
         // Cap delta time to prevent huge jumps
         const dt = Math.min(deltaTime, 0.1);
 
+        // Update camera
+        this.camera.update(dt);
+
         // Update all entities first
         for (const entity of this.entities) {
             if (entity.update) {
@@ -123,8 +135,13 @@ export class Engine {
         // Clear canvas
         this.renderer.clear();
 
-        // Apply screen shake if present
+        // Apply camera transform and screen shake
         ctx.save();
+
+        // Apply camera zoom/pan
+        this.camera.applyTransform(ctx);
+
+        // Apply screen shake on top of camera
         const screenEffects = this.systems.find(s => s.constructor.name === 'ScreenEffects');
         if (screenEffects) {
             screenEffects.applyShake(ctx);
@@ -173,7 +190,8 @@ export class Engine {
             // Update FPS display in DOM
             const fpsElement = document.getElementById('fps-counter');
             if (fpsElement) {
-                fpsElement.textContent = `FPS: ${this.fps}`;
+                const zoomPercent = Math.round(this.camera.zoom * 100);
+                fpsElement.textContent = `FPS: ${this.fps} | Zoom: ${zoomPercent}%`;
             }
         }
     }

@@ -61,6 +61,13 @@ function init() {
         // Initialize engine
         engine.init();
 
+        // Connect renderer resize to camera
+        renderer.onResize = (width, height) => {
+            if (engine && engine.camera) {
+                engine.camera.resize(width, height);
+            }
+        };
+
         // Create visual/audio effects
         screenEffects = new ScreenEffects();
         scorchMarkSystem = new ScorchMarkSystem();
@@ -179,6 +186,11 @@ function startBattle(config) {
     // Set random space atmosphere for variety
     if (atmosphereSystem) {
         atmosphereSystem.setRandomAtmosphere();
+    }
+
+    // Reset camera to default view
+    if (engine && engine.camera) {
+        engine.camera.reset();
     }
 
     // Initialize battle from configuration
