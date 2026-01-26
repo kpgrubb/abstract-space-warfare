@@ -40,6 +40,16 @@ export class CombatSystem {
             missile: 75,    // Good accuracy - tracking (but slow, gives time to evade)
             ballistic: 65   // Lower accuracy - kinetic spray
         };
+
+        // Large ship types that trigger screen shake on destruction
+        this.largeShipTypes = ['battleship', 'cruiser', 'carrier', 'dreadnought'];
+    }
+
+    /**
+     * Check if a ship type is considered "large" for screen shake purposes
+     */
+    isLargeShip(shipType) {
+        return this.largeShipTypes.includes(shipType);
     }
 
     /**
@@ -359,8 +369,8 @@ export class CombatSystem {
             this.particleSystem.createDeathExplosion(mine.x, mine.y, '#ffaa00');
         }
 
-        // Screen shake
-        if (this.screenEffects) {
+        // Screen shake only for large ships
+        if (this.screenEffects && this.isLargeShip(triggerShip.type)) {
             this.screenEffects.shake(0.8);
         }
 
@@ -377,6 +387,11 @@ export class CombatSystem {
                 triggerShip.color
             );
             this.spawnWreckage(triggerShip);
+
+            // Screen shake on death only for large ships
+            if (this.screenEffects && this.isLargeShip(triggerShip.type)) {
+                this.screenEffects.shake(1.2);
+            }
 
             if (this.audioSystem) {
                 this.audioSystem.playShipDestroyed();
@@ -839,7 +854,8 @@ export class CombatSystem {
 
                     // Missile explosion effects
                     if (weaponType === 'missile') {
-                        if (this.screenEffects) {
+                        // Screen shake only for large ship missile hits
+                        if (this.screenEffects && this.isLargeShip(target.type)) {
                             this.screenEffects.shake(0.6);
                         }
                         if (this.audioSystem) {
@@ -855,8 +871,8 @@ export class CombatSystem {
                             target.color
                         );
 
-                        // Screen shake for ship destruction
-                        if (this.screenEffects) {
+                        // Screen shake only for large ship destruction
+                        if (this.screenEffects && this.isLargeShip(target.type)) {
                             this.screenEffects.shake(1.0);
                         }
 
@@ -886,12 +902,7 @@ export class CombatSystem {
                         missSize
                     );
 
-                    // Missile misses still explode (but miss)
-                    if (weaponType === 'missile') {
-                        if (this.screenEffects) {
-                            this.screenEffects.shake(0.3); // Smaller shake for miss
-                        }
-                    }
+                    // No screen shake for missile misses (removed)
                 }
 
                 projectilesToRemove.push(projectile);

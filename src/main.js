@@ -160,6 +160,9 @@ function init() {
         });
         setupUI.create();
 
+        // Initialize mute button
+        initMuteButton();
+
         // Start the game loop (but no ships yet)
         engine.start();
 
@@ -283,6 +286,56 @@ function handleVictory(stats) {
             startBattle(currentConfig);
         }
     }, 500);
+}
+
+/**
+ * Initialize mute button and keyboard shortcut
+ */
+function initMuteButton() {
+    const muteBtn = document.getElementById('mute-btn');
+    if (!muteBtn) return;
+
+    // Click handler
+    muteBtn.addEventListener('click', () => {
+        toggleMute();
+    });
+
+    // Keyboard shortcut (M key)
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'm' || e.key === 'M') {
+            // Only handle if not in setup UI
+            const setupContainer = document.getElementById('setup-container');
+            if (setupContainer && setupContainer.style.display !== 'none') return;
+            toggleMute();
+        }
+    });
+}
+
+/**
+ * Toggle audio mute state
+ */
+function toggleMute() {
+    if (!audioSystem) return;
+
+    // Initialize audio if not yet (requires user interaction)
+    if (!audioSystem.initialized) {
+        audioSystem.init();
+    }
+
+    const enabled = audioSystem.toggle();
+    const muteBtn = document.getElementById('mute-btn');
+
+    if (muteBtn) {
+        if (enabled) {
+            muteBtn.textContent = '🔊';
+            muteBtn.classList.remove('muted');
+        } else {
+            muteBtn.textContent = '🔇';
+            muteBtn.classList.add('muted');
+        }
+    }
+
+    console.log(`Audio: ${enabled ? 'ON' : 'MUTED'}`);
 }
 
 /**
