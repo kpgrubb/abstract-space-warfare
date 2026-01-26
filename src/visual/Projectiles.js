@@ -47,6 +47,12 @@ export class Projectile {
             this.maxTrailLength = 15;
         }
 
+        // Ballistic-specific: short tracer trail positions
+        if (type === 'ballistic') {
+            this.trailPositions = [];
+            this.maxTrailLength = 6; // Shorter trail than missiles
+        }
+
         // Laser-specific: instant hit, brief duration
         if (type === 'laser') {
             this.beamDuration = config.beamDuration || 0.15;
@@ -71,8 +77,8 @@ export class Projectile {
             return;
         }
 
-        // Store trail position for missiles
-        if (this.type === 'missile') {
+        // Store trail position for missiles and ballistics
+        if (this.type === 'missile' || this.type === 'ballistic') {
             this.trailPositions.push({ x: this.x, y: this.y });
             if (this.trailPositions.length > this.maxTrailLength) {
                 this.trailPositions.shift();
@@ -110,27 +116,43 @@ export class Projectile {
     }
 
     /**
-     * Render ballistic projectile (tracer round)
+     * Render ballistic projectile (tracer round with fading trail)
      */
     renderBallistic(ctx, renderer) {
         ctx.save();
+
+        // Fading trail (similar to missiles but shorter and thinner)
+        if (this.trailPositions && this.trailPositions.length > 1) {
+            for (let i = 1; i < this.trailPositions.length; i++) {
+                const alpha = (i / this.trailPositions.length) * 0.4;
+                const width = (i / this.trailPositions.length) * this.size * 0.6;
+
+                ctx.globalAlpha = alpha;
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = width;
+                ctx.beginPath();
+                ctx.moveTo(this.trailPositions[i - 1].x, this.trailPositions[i - 1].y);
+                ctx.lineTo(this.trailPositions[i].x, this.trailPositions[i].y);
+                ctx.stroke();
+            }
+
+            // Connect trail to current position
+            if (this.trailPositions.length > 0) {
+                const lastPos = this.trailPositions[this.trailPositions.length - 1];
+                ctx.globalAlpha = 0.5;
+                ctx.lineWidth = this.size * 0.7;
+                ctx.beginPath();
+                ctx.moveTo(lastPos.x, lastPos.y);
+                ctx.lineTo(this.x, this.y);
+                ctx.stroke();
+            }
+        }
+
+        // Projectile head with glow
+        ctx.globalAlpha = 1.0;
         ctx.shadowColor = this.color;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 8;
         renderer.drawCircle(this.x, this.y, this.size, this.color);
-        ctx.shadowBlur = 0;
-
-        // Tracer trail
-        const trailLength = 15;
-        const trailX = this.x - (this.vx / this.speed) * trailLength;
-        const trailY = this.y - (this.vy / this.speed) * trailLength;
-
-        ctx.globalAlpha = 0.6;
-        ctx.strokeStyle = this.color;
-        ctx.lineWidth = this.size * 0.8;
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y);
-        ctx.lineTo(trailX, trailY);
-        ctx.stroke();
 
         ctx.restore();
     }
