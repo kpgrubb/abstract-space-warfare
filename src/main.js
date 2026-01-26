@@ -19,6 +19,7 @@ import { ScorchMarkSystem } from './visual/ScorchMarks.js';
 import { AudioSystem } from './audio/AudioSystem.js';
 import { AtmosphereSystem } from './visual/AtmosphereSystem.js';
 import { RadioChatter } from './visual/RadioChatter.js';
+import { ShipTooltip } from './ui/ShipTooltip.js';
 
 // Application state
 let engine = null;
@@ -39,6 +40,7 @@ let atmosphereSystem = null;
 let reinforcementSystem = null;
 let fleetCoordinator = null;
 let radioChatter = null;
+let shipTooltip = null;
 
 // Wreckage entities
 let wreckageEntities = [];
@@ -95,6 +97,13 @@ function init() {
         // Create radio chatter system
         radioChatter = new RadioChatter();
 
+        // Create ship tooltip system
+        shipTooltip = new ShipTooltip(engine);
+        const canvas = document.getElementById('battleCanvas');
+        if (canvas) {
+            shipTooltip.init(canvas);
+        }
+
         // Set up wreckage spawning callback
         combatSystem.onWreckageSpawn = (wreckage) => {
             wreckageEntities.push(wreckage);
@@ -131,6 +140,13 @@ function init() {
             if (combatSystem) {
                 combatSystem.renderMines(ctx);
                 combatSystem.renderSpinalBeams(ctx);
+            }
+        });
+
+        // Add overlay render for ship tooltip (screen-space, after camera transform)
+        engine.addOverlayRender(() => {
+            if (shipTooltip) {
+                shipTooltip.render(renderer);
             }
         });
 

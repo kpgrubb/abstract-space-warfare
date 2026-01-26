@@ -18,6 +18,7 @@ export class Engine {
         this.entities = [];
         this.systems = [];
         this.customRenders = [];
+        this.overlayRenders = []; // Screen-space UI renders (not affected by camera)
 
         // Camera for zoom/pan
         this.camera = new Camera();
@@ -173,6 +174,11 @@ export class Engine {
         if (screenEffects && screenEffects.render) {
             screenEffects.render(this.renderer);
         }
+
+        // Render overlay UI (in screen space, not affected by camera)
+        for (const overlayRender of this.overlayRenders) {
+            overlayRender();
+        }
     }
 
     /**
@@ -225,6 +231,13 @@ export class Engine {
      */
     addCustomRender(callback) {
         this.customRenders.push(callback);
+    }
+
+    /**
+     * Add an overlay render callback (screen-space UI)
+     */
+    addOverlayRender(callback) {
+        this.overlayRenders.push(callback);
     }
 
     /**
