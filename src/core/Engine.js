@@ -23,6 +23,9 @@ export class Engine {
         // Camera for zoom/pan
         this.camera = new Camera();
 
+        // Time scale for speed controls (1.0 = normal)
+        this.timeScale = 1.0;
+
         // Bind the game loop to maintain context
         this.gameLoop = this.gameLoop.bind(this);
     }
@@ -42,7 +45,74 @@ export class Engine {
             this.camera.init(canvas);
         }
 
+        // Initialize speed controls
+        this.initSpeedControls();
+
         console.log('Engine initialized successfully');
+    }
+
+    /**
+     * Initialize speed control buttons
+     */
+    initSpeedControls() {
+        const buttons = document.querySelectorAll('.speed-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const speed = parseFloat(e.target.dataset.speed);
+                this.setTimeScale(speed);
+
+                // Update active button state
+                buttons.forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+            });
+        });
+
+        // Keyboard shortcuts for speed
+        window.addEventListener('keydown', (e) => {
+            // Only handle if not in setup UI
+            const setupContainer = document.getElementById('setup-container');
+            if (setupContainer && setupContainer.style.display !== 'none') return;
+
+            switch(e.key) {
+                case '1': this.setTimeScale(0.5); this.updateSpeedButtons(0.5); break;
+                case '2': this.setTimeScale(1); this.updateSpeedButtons(1); break;
+                case '3': this.setTimeScale(2); this.updateSpeedButtons(2); break;
+                case '4': this.setTimeScale(4); this.updateSpeedButtons(4); break;
+                case ' ': // Spacebar to toggle pause
+                    e.preventDefault();
+                    if (this.timeScale === 0) {
+                        this.setTimeScale(1);
+                        this.updateSpeedButtons(1);
+                    } else {
+                        this.setTimeScale(0);
+                        this.updateSpeedButtons(0);
+                    }
+                    break;
+            }
+        });
+    }
+
+    /**
+     * Update speed button active states
+     */
+    updateSpeedButtons(speed) {
+        const buttons = document.querySelectorAll('.speed-btn');
+        buttons.forEach(btn => {
+            const btnSpeed = parseFloat(btn.dataset.speed);
+            if (btnSpeed === speed) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    /**
+     * Set time scale (game speed multiplier)
+     */
+    setTimeScale(scale) {
+        this.timeScale = scale;
+        console.log(`Game speed: ${scale === 0 ? 'PAUSED' : scale + 'x'}`);
     }
 
     /**
@@ -94,10 +164,13 @@ export class Engine {
      */
     update(deltaTime) {
         // Cap delta time to prevent huge jumps
-        const dt = Math.min(deltaTime, 0.1);
+        const cappedDt = Math.min(deltaTime, 0.1);
 
-        // Update camera
-        this.camera.update(dt);
+        // Apply time scale for game speed
+        const dt = cappedDt * this.timeScale;
+
+        // Update camera (always update, even when paused, for smooth controls)
+        this.camera.update(cappedDt);
 
         // Update all entities first
         for (const entity of this.entities) {
