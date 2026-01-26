@@ -19,9 +19,9 @@ export class Spacecraft {
         this.type = 'spacecraft';
         this.team = team;
         this.size = 20;
-        this.speed = 50;           // Max speed
-        this.acceleration = 15;    // How fast we reach max speed (momentum)
-        this.turnRate = 1.0;       // radians per second
+        this.speed = 40;           // Max speed (was 50) - slower for ponderous feel
+        this.acceleration = 6;     // How fast we reach max speed (was 15) - more inertia
+        this.turnRate = 0.7;       // radians per second (was 1.0) - slower turning
 
         // Health
         this.health = 100;

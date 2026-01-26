@@ -5,12 +5,13 @@
 
 // Weapon configurations
 // Speed hierarchy: Lasers (instant) > Ballistics (fast) > Missiles (tracking)
+// Tuned for ponderous, deliberate combat
 export const WeaponConfig = {
     ballistic: {
         damage: 8,
-        speed: 450,      // Fast projectile
+        speed: 280,      // Slower projectile (was 450)
         range: 280,
-        cooldown: 0.5,   // Fast fire rate
+        cooldown: 1.2,   // Slower fire rate (was 0.5)
         visual: 'tracer',
         color: '#ffaa00',
         size: 2
@@ -18,20 +19,20 @@ export const WeaponConfig = {
 
     laser: {
         damage: 12,
-        speed: 3000,     // Near-instant (fastest)
+        speed: 1800,     // Still fast but more visible (was 3000)
         range: 320,
-        cooldown: 0.8,
+        cooldown: 1.8,   // Slower fire rate (was 0.8)
         visual: 'beam',
         color: '#00ff44',
-        beamDuration: 0.12,
+        beamDuration: 0.15,
         size: 1.5
     },
 
     missile: {
         damage: 35,
-        speed: 280,      // Faster than before, but still slowest weapon
+        speed: 180,      // Slower missiles (was 280)
         range: 400,
-        cooldown: 2.5,   // Slow fire rate
+        cooldown: 5.0,   // Much slower fire rate (was 2.5)
         visual: 'torpedo',
         color: '#ff4444',
         size: 4,
@@ -40,9 +41,9 @@ export const WeaponConfig = {
 
     flak: {
         damage: 15,      // Moderate damage per hit
-        speed: 380,      // Fast burst projectile
+        speed: 240,      // Slower burst projectile (was 380)
         range: 150,      // Short range area denial
-        cooldown: 1.2,   // Medium fire rate
+        cooldown: 2.5,   // Slower fire rate (was 1.2)
         visual: 'flak',
         color: '#ffcc00',
         size: 3,

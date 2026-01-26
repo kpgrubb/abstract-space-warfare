@@ -9,14 +9,14 @@ export class RadioChatter {
         this.activeBubbles = [];
         this.maxBubbles = 2;
 
-        // Timing
-        this.refreshInterval = 1.2;  // Seconds between new messages
-        this.bubbleDuration = 1.5;   // How long bubbles stay visible
+        // Timing - tuned for slower, more deliberate feel
+        this.refreshInterval = 3.0;  // Seconds between new messages (was 1.2)
+        this.bubbleDuration = 2.5;   // How long bubbles stay visible (was 1.5)
         this.timer = 0;
 
         // Cooldown per ship to avoid spam
         this.shipCooldowns = new Map();
-        this.shipCooldownTime = 3;  // Seconds before same ship can talk again
+        this.shipCooldownTime = 6;  // Seconds before same ship can talk again (was 3)
 
         // Message templates by action/state
         this.messages = {

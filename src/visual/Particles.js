@@ -88,14 +88,15 @@ export class ParticleSystem {
 
     /**
      * Create an explosion effect
+     * Tuned for slower, more ponderous feel
      */
     createExplosion(x, y, color, count = 20, size = 3) {
         for (let i = 0; i < count; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 150 + 50;
+            const speed = Math.random() * 60 + 20; // Slower drift (was 150 + 50)
             const vx = Math.cos(angle) * speed;
             const vy = Math.sin(angle) * speed;
-            const lifetime = Math.random() * 0.5 + 0.5; // 0.5-1.0 seconds
+            const lifetime = Math.random() * 1.2 + 1.0; // Longer lasting (was 0.5 + 0.5)
 
             this.createParticle(x, y, vx, vy, color, size, lifetime);
         }
@@ -107,10 +108,10 @@ export class ParticleSystem {
     createImpact(x, y, color, count = 8) {
         for (let i = 0; i < count; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 100 + 30;
+            const speed = Math.random() * 40 + 15; // Slower (was 100 + 30)
             const vx = Math.cos(angle) * speed;
             const vy = Math.sin(angle) * speed;
-            const lifetime = Math.random() * 0.3 + 0.2;
+            const lifetime = Math.random() * 0.6 + 0.4; // Longer (was 0.3 + 0.2)
 
             this.createParticle(x, y, vx, vy, color, 2, lifetime);
         }
@@ -122,10 +123,10 @@ export class ParticleSystem {
     createMuzzleFlash(x, y, angle, color, count = 5) {
         for (let i = 0; i < count; i++) {
             const spreadAngle = angle + (Math.random() - 0.5) * 0.3;
-            const speed = Math.random() * 80 + 40;
+            const speed = Math.random() * 35 + 20; // Slower (was 80 + 40)
             const vx = Math.cos(spreadAngle) * speed;
             const vy = Math.sin(spreadAngle) * speed;
-            const lifetime = Math.random() * 0.2 + 0.1;
+            const lifetime = Math.random() * 0.4 + 0.2; // Longer (was 0.2 + 0.1)
 
             this.createParticle(x, y, vx, vy, color, 2, lifetime);
         }
@@ -137,10 +138,10 @@ export class ParticleSystem {
     createSmoke(x, y, count = 5) {
         for (let i = 0; i < count; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 30 + 10;
+            const speed = Math.random() * 15 + 5; // Slower (was 30 + 10)
             const vx = Math.cos(angle) * speed;
-            const vy = Math.sin(angle) * speed - 30; // Smoke rises
-            const lifetime = Math.random() * 1.0 + 0.5;
+            const vy = Math.sin(angle) * speed - 15; // Smoke rises slower (was -30)
+            const lifetime = Math.random() * 2.0 + 1.0; // Longer (was 1.0 + 0.5)
             const size = Math.random() * 4 + 2;
 
             this.createParticle(x, y, vx, vy, Colors.SMOKE, size, lifetime);
@@ -154,13 +155,13 @@ export class ParticleSystem {
         // Main explosion
         this.createExplosion(x, y, color, 30, 4);
 
-        // Debris
+        // Debris - slower, longer lasting
         for (let i = 0; i < 10; i++) {
             const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 120 + 60;
+            const speed = Math.random() * 50 + 25; // Slower (was 120 + 60)
             const vx = Math.cos(angle) * speed;
             const vy = Math.sin(angle) * speed;
-            const lifetime = Math.random() * 0.8 + 0.4;
+            const lifetime = Math.random() * 1.6 + 0.8; // Longer (was 0.8 + 0.4)
 
             this.createParticle(x, y, vx, vy, Colors.DEBRIS, 3, lifetime);
         }
