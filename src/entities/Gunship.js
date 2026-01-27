@@ -36,6 +36,10 @@ export class Gunship extends Spacecraft {
         // Team colors
         this.color = team === 'friendly' ? '#00aacc' : '#ff6633';
 
+        // Missile ammo: Small/medium ship
+        this.missileAmmo = 4;
+        this.maxMissileAmmo = 4;
+
         // Hardpoints: Heavy armament
         this.addHardpoint(8, -5, 'ballistic');   // Left nose cannon
         this.addHardpoint(8, 5, 'ballistic');    // Right nose cannon

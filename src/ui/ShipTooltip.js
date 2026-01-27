@@ -100,13 +100,23 @@ export class ShipTooltip {
 
         // Weapons/DPS
         if (ship.hardpoints && ship.hardpoints.length > 0) {
-            const weapons = ship.hardpoints.map(h => this.formatWeaponType(h.type)).join(', ');
+            const weapons = ship.hardpoints.map(h => this.formatWeaponType(h.weaponType)).join(', ');
             stats.push({ label: 'Weapons', value: weapons });
         }
 
+        // Missile ammo (if ship has missiles)
+        if (ship.maxMissileAmmo && ship.maxMissileAmmo > 0) {
+            const hasMissiles = ship.hardpoints && ship.hardpoints.some(h => h.weaponType === 'missile');
+            if (hasMissiles) {
+                const ammoColor = ship.missileAmmo === 0 ? '#ff4444' :
+                                  ship.missileAmmo <= 2 ? '#ffaa00' : '#ffffff';
+                stats.push({ label: 'Missiles', value: `${ship.missileAmmo}/${ship.maxMissileAmmo}`, color: ammoColor });
+            }
+        }
+
         // Speed
-        if (ship.maxSpeed) {
-            stats.push({ label: 'Speed', value: `${Math.round(ship.maxSpeed)}` });
+        if (ship.speed) {
+            stats.push({ label: 'Speed', value: `${Math.round(ship.speed)}` });
         }
 
         // Special abilities based on ship type

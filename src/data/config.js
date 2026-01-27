@@ -20,7 +20,7 @@ export const WeaponConfig = {
     laser: {
         damage: 12,
         speed: 1800,     // Still fast but more visible (was 3000)
-        range: 150,      // Short range - high risk/reward (was 320)
+        range: 100,      // Very short range - knife fight weapon (was 150)
         cooldown: 1.8,   // Slower fire rate (was 0.8)
         visual: 'beam',
         color: '#00ff44',

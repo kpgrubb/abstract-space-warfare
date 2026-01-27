@@ -32,6 +32,10 @@ export class Fighter extends Spacecraft {
         // Team colors
         this.color = team === 'friendly' ? '#00ddff' : '#ff4466';
 
+        // Missile ammo: Small ship - very limited
+        this.missileAmmo = 2;
+        this.maxMissileAmmo = 2;
+
         // Hardpoints: 2 nose cannons + 1 center missile
         this.addHardpoint(6, -3, 'ballistic');   // Left nose gun
         this.addHardpoint(6, 3, 'ballistic');    // Right nose gun

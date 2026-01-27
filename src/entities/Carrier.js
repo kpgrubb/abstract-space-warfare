@@ -39,6 +39,10 @@ export class Carrier extends Spacecraft {
         // Team colors
         this.color = team === 'friendly' ? '#0077dd' : '#ff7722';
 
+        // Missile ammo: Large ship - heavy missile platform
+        this.missileAmmo = 12;
+        this.maxMissileAmmo = 12;
+
         // Hardpoints: 3 missile launchers + 1 defensive laser
         this.addHardpoint(7, 0, 'missile');      // Forward launcher
         this.addHardpoint(-7, -12, 'missile');   // Port launcher

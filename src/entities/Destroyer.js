@@ -47,6 +47,10 @@ export class Destroyer extends Spacecraft {
         // Team colors - teal/cyan for escort ships
         this.color = team === 'friendly' ? '#00ccaa' : '#ff8844';
 
+        // Missile ammo: Medium ship - torpedo boat
+        this.missileAmmo = 6;
+        this.maxMissileAmmo = 6;
+
         // Hardpoints: 2 forward torpedoes, 2 PD lasers, 1 flak cannon
         this.addHardpoint(10, 0, 'missile');    // Forward torpedo
         this.addHardpoint(8, -4, 'missile');    // Port torpedo

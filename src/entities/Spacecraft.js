@@ -62,6 +62,11 @@ export class Spacecraft {
         // Hardpoint system - array of weapon mounts
         this.hardpoints = [];
 
+        // Missile ammo capacity based on ship size (set in subclasses)
+        // Small ships: 2-4 missiles, Medium: 6-8, Large: 12-16
+        this.missileAmmo = 4;       // Default for small ships
+        this.maxMissileAmmo = 4;
+
         // Visual
         this.color = team === 'friendly' ? '#00ccff' : '#ff3366';
 
@@ -234,7 +239,13 @@ export class Spacecraft {
      * Get all hardpoints that are ready to fire
      */
     getReadyHardpoints() {
-        return this.hardpoints.filter(hp => hp.lastFire >= hp.cooldown);
+        return this.hardpoints.filter(hp => {
+            // Check cooldown
+            if (hp.lastFire < hp.cooldown) return false;
+            // Check ammo for missiles
+            if (hp.weaponType === 'missile' && this.missileAmmo <= 0) return false;
+            return true;
+        });
     }
 
     /**
@@ -252,9 +263,13 @@ export class Spacecraft {
         const readyHardpoints = this.getReadyHardpoints();
         if (readyHardpoints.length === 0) return [];
 
-        // Reset cooldowns for all fired hardpoints
+        // Reset cooldowns and consume ammo for all fired hardpoints
         for (const hp of readyHardpoints) {
             hp.lastFire = 0;
+            // Consume missile ammo
+            if (hp.weaponType === 'missile') {
+                this.missileAmmo = Math.max(0, this.missileAmmo - 1);
+            }
         }
 
         return readyHardpoints;

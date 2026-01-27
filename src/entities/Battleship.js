@@ -39,6 +39,10 @@ export class Battleship extends Spacecraft {
         // Team colors
         this.color = team === 'friendly' ? '#0055cc' : '#ff4400';
 
+        // Missile ammo: Large capital ship
+        this.missileAmmo = 12;
+        this.maxMissileAmmo = 12;
+
         // 8 Hardpoints: Full broadside capability
         this.addHardpoint(18, 0, 'ballistic');   // Main forward battery
         this.addHardpoint(10, -10, 'laser');     // Port forward turret

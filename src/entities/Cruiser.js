@@ -38,6 +38,10 @@ export class Cruiser extends Spacecraft {
         // Team colors
         this.color = team === 'friendly' ? '#0099ff' : '#ff6633';
 
+        // Missile ammo: Medium/large ship
+        this.missileAmmo = 8;
+        this.maxMissileAmmo = 8;
+
         // Hardpoints: 1 forward ballistic, 2 side lasers, 2 rear missiles
         this.addHardpoint(12, 0, 'ballistic');   // Forward cannon
         this.addHardpoint(3, -8, 'laser');       // Left turret

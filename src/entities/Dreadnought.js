@@ -36,6 +36,10 @@ export class Dreadnought extends Spacecraft {
         // Team colors - darker, more imposing
         this.color = team === 'friendly' ? '#003399' : '#cc2200';
 
+        // Missile ammo: Massive capital ship
+        this.missileAmmo = 16;
+        this.maxMissileAmmo = 16;
+
         // SPINAL BEAM CANNON - special weapon
         this.spinalBeamReady = true;
         this.spinalBeamCooldown = 8;    // 8 second cooldown
