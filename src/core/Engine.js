@@ -55,13 +55,15 @@ export class Engine {
      * Initialize speed control buttons
      */
     initSpeedControls() {
-        const buttons = document.querySelectorAll('.speed-btn');
+        const buttons = document.querySelectorAll('.speed-btn[data-speed]');
         buttons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const speed = parseFloat(e.target.dataset.speed);
+                if (isNaN(speed)) return; // Skip if no valid speed (e.g., mute button)
+
                 this.setTimeScale(speed);
 
-                // Update active button state
+                // Update active button state (only for speed buttons, not mute)
                 buttons.forEach(b => b.classList.remove('active'));
                 e.target.classList.add('active');
             });
@@ -96,7 +98,7 @@ export class Engine {
      * Update speed button active states
      */
     updateSpeedButtons(speed) {
-        const buttons = document.querySelectorAll('.speed-btn');
+        const buttons = document.querySelectorAll('.speed-btn[data-speed]');
         buttons.forEach(btn => {
             const btnSpeed = parseFloat(btn.dataset.speed);
             if (btnSpeed === speed) {
