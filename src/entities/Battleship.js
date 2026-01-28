@@ -37,7 +37,7 @@ export class Battleship extends Spacecraft {
         this.shieldRegenDelay = 5;  // Slower to recover due to larger system
 
         // Team colors
-        this.color = team === 'friendly' ? '#3a3025' : '#253040';
+        this.color = team === 'friendly' ? '#3a3025' : '#d8d8d8';
 
         // Missile ammo: Large capital ship
         this.missileAmmo = 12;
@@ -168,6 +168,7 @@ export class Battleship extends Spacecraft {
 
     lightenColor(color) {
         if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
-        return '#888888';
+        // Light enemy ships get dark accents, dark friendly ships get light accents
+        return color === '#e8e8e8' || color === '#d8d8d8' || color === '#c8c8c8' ? '#666666' : '#888888';
     }
 }

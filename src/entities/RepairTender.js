@@ -34,8 +34,8 @@ export class RepairTender extends Spacecraft {
         this.shieldRegenRate = 8;
         this.shieldRegenDelay = 3;
 
-        // Team colors - support vessel green
-        this.color = team === 'friendly' ? '#4a4035' : '#354050';
+        // Team colors - support vessel
+        this.color = team === 'friendly' ? '#4a4035' : '#e8e8e8';
 
         // Repair system
         this.repairRange = 120;      // Range to repair friendlies
@@ -297,6 +297,7 @@ export class RepairTender extends Spacecraft {
 
     lightenColor(color) {
         if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
-        return '#888888';
+        // Light enemy ships get dark accents, dark friendly ships get light accents
+        return color === '#e8e8e8' || color === '#d8d8d8' || color === '#c8c8c8' ? '#666666' : '#888888';
     }
 }

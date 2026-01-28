@@ -30,7 +30,7 @@ export class Frigate extends Spacecraft {
         this.tacticalRole = 'escort';
 
         // Team colors
-        this.color = team === 'friendly' ? '#4a4035' : '#354050';
+        this.color = team === 'friendly' ? '#4a4035' : '#e8e8e8';
 
         // Hardpoints: 2 forward ballistic + 2 side lasers
         this.addHardpoint(9, -2, 'ballistic');   // Left forward
@@ -102,6 +102,7 @@ export class Frigate extends Spacecraft {
 
     lightenColor(color) {
         if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
-        return '#888888';
+        // Light enemy ships get dark accents, dark friendly ships get light accents
+        return color === '#e8e8e8' || color === '#d8d8d8' || color === '#c8c8c8' ? '#666666' : '#888888';
     }
 }

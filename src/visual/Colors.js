@@ -9,14 +9,14 @@ export const Colors = {
     FRIENDLY_SECONDARY: '#5a5045',
     FRIENDLY_ACCENT: '#3a3025',
 
-    // Enemy units (cool dark grey)
-    ENEMY_PRIMARY: '#354050',
-    ENEMY_SECONDARY: '#455060',
-    ENEMY_ACCENT: '#253040',
+    // Enemy units (light/white)
+    ENEMY_PRIMARY: '#e8e8e8',
+    ENEMY_SECONDARY: '#f0f0f0',
+    ENEMY_ACCENT: '#d8d8d8',
 
     // Projectiles and effects
     PROJECTILE_FRIENDLY: '#2a2520',
-    PROJECTILE_ENEMY: '#202530',
+    PROJECTILE_ENEMY: '#888888',
     EXPLOSION: '#1a1a1a',
     IMPACT: '#000000',
 

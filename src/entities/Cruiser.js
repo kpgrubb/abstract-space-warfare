@@ -36,7 +36,7 @@ export class Cruiser extends Spacecraft {
         this.shieldRegenDelay = 3;
 
         // Team colors
-        this.color = team === 'friendly' ? '#4a4035' : '#354050';
+        this.color = team === 'friendly' ? '#4a4035' : '#e8e8e8';
 
         // Missile ammo: Medium/large ship
         this.missileAmmo = 8;
@@ -132,6 +132,7 @@ export class Cruiser extends Spacecraft {
 
     lightenColor(color) {
         if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
-        return '#888888';
+        // Light enemy ships get dark accents, dark friendly ships get light accents
+        return color === '#e8e8e8' || color === '#d8d8d8' || color === '#c8c8c8' ? '#666666' : '#888888';
     }
 }

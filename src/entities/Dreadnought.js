@@ -34,7 +34,7 @@ export class Dreadnought extends Spacecraft {
         this.shieldRegenDelay = 6;
 
         // Team colors - darker, more imposing
-        this.color = team === 'friendly' ? '#2a2015' : '#152030';
+        this.color = team === 'friendly' ? '#2a2015' : '#c8c8c8';
 
         // Missile ammo: Massive capital ship
         this.missileAmmo = 16;
@@ -275,6 +275,7 @@ export class Dreadnought extends Spacecraft {
 
     lightenColor(color) {
         if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
-        return '#888888';
+        // Light enemy ships get dark accents, dark friendly ships get light accents
+        return color === '#e8e8e8' || color === '#d8d8d8' || color === '#c8c8c8' ? '#666666' : '#888888';
     }
 }

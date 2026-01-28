@@ -68,7 +68,7 @@ export class Spacecraft {
         this.maxMissileAmmo = 4;
 
         // Visual
-        this.color = team === 'friendly' ? '#4a4035' : '#354050';
+        this.color = team === 'friendly' ? '#4a4035' : '#e8e8e8';
 
         // AI state
         this.target = null;
