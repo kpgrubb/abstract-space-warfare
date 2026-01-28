@@ -23,8 +23,8 @@ export class Engine {
         // Camera for zoom/pan
         this.camera = new Camera();
 
-        // Time scale for speed controls (1.0 = normal)
-        this.timeScale = 1.0;
+        // Time scale for speed controls (0.5 = default, slower paced)
+        this.timeScale = 0.5;
 
         // Bind the game loop to maintain context
         this.gameLoop = this.gameLoop.bind(this);
@@ -76,15 +76,15 @@ export class Engine {
             if (setupContainer && setupContainer.style.display !== 'none') return;
 
             switch(e.key) {
-                case '1': this.setTimeScale(0.5); this.updateSpeedButtons(0.5); break;
-                case '2': this.setTimeScale(1); this.updateSpeedButtons(1); break;
-                case '3': this.setTimeScale(2); this.updateSpeedButtons(2); break;
-                case '4': this.setTimeScale(4); this.updateSpeedButtons(4); break;
+                case '1': this.setTimeScale(0.25); this.updateSpeedButtons(0.25); break;
+                case '2': this.setTimeScale(0.5); this.updateSpeedButtons(0.5); break;
+                case '3': this.setTimeScale(1); this.updateSpeedButtons(1); break;
+                case '4': this.setTimeScale(2); this.updateSpeedButtons(2); break;
                 case ' ': // Spacebar to toggle pause
                     e.preventDefault();
                     if (this.timeScale === 0) {
-                        this.setTimeScale(1);
-                        this.updateSpeedButtons(1);
+                        this.setTimeScale(0.5);
+                        this.updateSpeedButtons(0.5);
                     } else {
                         this.setTimeScale(0);
                         this.updateSpeedButtons(0);
