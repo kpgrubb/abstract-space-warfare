@@ -151,8 +151,8 @@ export class Cavalry extends Unit {
         if (this.isCharging) {
             ctx.save();
             ctx.globalAlpha = 0.4;
-            ctx.shadowColor = this.color;
-            ctx.shadowBlur = 25;
+            ctx.shadowColor = 'rgba(0,0,0,0.4)';
+            ctx.shadowBlur = 10;
             renderer.drawDiamond(
                 this.x,
                 this.y,

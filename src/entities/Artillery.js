@@ -76,8 +76,8 @@ export class Artillery extends Unit {
             // Extra glow when ready
             ctx.save();
             ctx.globalAlpha = 0.3;
-            ctx.shadowColor = this.color;
-            ctx.shadowBlur = 20;
+            ctx.shadowColor = 'rgba(0,0,0,0.4)';
+            ctx.shadowBlur = 10;
             renderer.drawHexagon(this.x, this.y, pulseSize * 1.2, this.color, false);
             ctx.shadowBlur = 0;
             ctx.globalAlpha = 1.0;

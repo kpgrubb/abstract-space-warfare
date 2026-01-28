@@ -34,7 +34,7 @@ export class Gunship extends Spacecraft {
         this.shieldRegenDelay = 3;
 
         // Team colors
-        this.color = team === 'friendly' ? '#00aacc' : '#ff6633';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Missile ammo: Small/medium ship
         this.missileAmmo = 4;
@@ -63,12 +63,12 @@ export class Gunship extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 15;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Main hull - bulky angular shape
         ctx.beginPath();
@@ -94,7 +94,7 @@ export class Gunship extends Spacecraft {
         ctx.fillRect(this.size * 0.1, this.size * 0.45, this.size * 0.3, this.size * 0.15);
 
         // Nose cannons
-        ctx.fillStyle = '#333344';
+        ctx.fillStyle = '#cccccc';
         ctx.fillRect(this.size * 0.7, -this.size * 0.15, this.size * 0.35, this.size * 0.08);
         ctx.fillRect(this.size * 0.7, this.size * 0.07, this.size * 0.35, this.size * 0.08);
 
@@ -105,9 +105,9 @@ export class Gunship extends Spacecraft {
         ctx.fill();
 
         // Engine glow (twin engines)
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = '#00aaff';
-        ctx.fillStyle = '#00ccff';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
         ctx.globalAlpha = 0.8;
         ctx.beginPath();
         ctx.ellipse(-this.size * 0.55, -this.size * 0.2, this.size * 0.12, this.size * 0.08, 0, 0, Math.PI * 2);
@@ -126,7 +126,7 @@ export class Gunship extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

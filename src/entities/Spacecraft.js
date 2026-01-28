@@ -68,7 +68,7 @@ export class Spacecraft {
         this.maxMissileAmmo = 4;
 
         // Visual
-        this.color = team === 'friendly' ? '#00ccff' : '#ff3366';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // AI state
         this.target = null;
@@ -564,13 +564,13 @@ export class Spacecraft {
         // Shield bar (if ship has shields)
         if (hasShieldCapacity) {
             // Shield background
-            ctx.fillStyle = '#222244';
+            ctx.fillStyle = '#cccccc';
             ctx.fillRect(barX, barY, barWidth, barHeight);
 
             // Shield fill
             const shieldPercent = this.shields / this.maxShields;
-            ctx.fillStyle = '#4488ff';
-            ctx.shadowColor = '#4488ff';
+            ctx.fillStyle = '#555577';
+            ctx.shadowColor = '#555577';
             ctx.shadowBlur = 4;
             ctx.fillRect(barX, barY, barWidth * shieldPercent, barHeight);
             ctx.shadowBlur = 0;
@@ -579,13 +579,13 @@ export class Spacecraft {
         }
 
         // Health background
-        ctx.fillStyle = '#333333';
+        ctx.fillStyle = '#cccccc';
         ctx.fillRect(barX, barY, barWidth, barHeight);
 
         // Health fill
         const healthPercent = this.health / this.maxHealth;
-        const healthColor = healthPercent > 0.5 ? '#00ff00' :
-                           healthPercent > 0.25 ? '#ffff00' : '#ff0000';
+        const healthColor = healthPercent > 0.5 ? '#336633' :
+                           healthPercent > 0.25 ? '#666633' : '#663333';
         ctx.fillStyle = healthColor;
         ctx.fillRect(barX, barY, barWidth * healthPercent, barHeight);
 
@@ -611,15 +611,15 @@ export class Spacecraft {
 
         // Flicker effect when hit
         if (this.shieldFlicker > 0) {
-            ctx.strokeStyle = `rgba(100, 180, 255, ${0.5 + this.shieldFlicker * 0.5})`;
+            ctx.strokeStyle = `rgba(60, 60, 80, ${0.5 + this.shieldFlicker * 0.5})`;
             ctx.lineWidth = 2 + this.shieldFlicker * 2;
-            ctx.shadowColor = '#4488ff';
-            ctx.shadowBlur = 15;
+            ctx.shadowColor = 'rgba(0,0,0,0.3)';
+            ctx.shadowBlur = 10;
         } else {
-            ctx.strokeStyle = `rgba(80, 150, 255, ${shieldAlpha})`;
+            ctx.strokeStyle = `rgba(60, 60, 80, ${shieldAlpha})`;
             ctx.lineWidth = 1.5;
-            ctx.shadowColor = '#4488ff';
-            ctx.shadowBlur = 8;
+            ctx.shadowColor = 'rgba(0,0,0,0.2)';
+            ctx.shadowBlur = 6;
         }
 
         ctx.stroke();
@@ -627,9 +627,9 @@ export class Spacecraft {
         // Inner glow
         if (this.shields > 0) {
             const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, shieldRadius);
-            gradient.addColorStop(0, 'rgba(80, 150, 255, 0)');
-            gradient.addColorStop(0.7, 'rgba(80, 150, 255, 0)');
-            gradient.addColorStop(1, `rgba(80, 150, 255, ${shieldAlpha * 0.5})`);
+            gradient.addColorStop(0, 'rgba(60, 60, 80, 0)');
+            gradient.addColorStop(0.7, 'rgba(60, 60, 80, 0)');
+            gradient.addColorStop(1, `rgba(60, 60, 80, ${shieldAlpha * 0.5})`);
             ctx.fillStyle = gradient;
             ctx.fill();
         }

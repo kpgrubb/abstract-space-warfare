@@ -18,7 +18,7 @@ export class Unit {
         // Properties
         this.team = team; // 'friendly' or 'enemy'
         this.size = 16;
-        this.color = team === 'friendly' ? '#00d4ff' : '#ff3366';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
         this.rotation = 0;
 
         // Stats

@@ -30,7 +30,7 @@ export class Fighter extends Spacecraft {
         this.tacticalRole = 'interceptor';
 
         // Team colors
-        this.color = team === 'friendly' ? '#00ddff' : '#ff4466';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Missile ammo: Small ship - very limited
         this.missileAmmo = 2;
@@ -56,12 +56,12 @@ export class Fighter extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 12;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Main hull - sleek arrow shape
         ctx.beginPath();
@@ -86,9 +86,9 @@ export class Fighter extends Spacecraft {
         ctx.fill();
 
         // Engine glow
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = '#00aaff';
-        ctx.fillStyle = '#00ccff';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
         ctx.globalAlpha = 0.8;
         ctx.beginPath();
         ctx.ellipse(-this.size * 0.4, 0, this.size * 0.12, this.size * 0.08, 0, 0, Math.PI * 2);
@@ -102,7 +102,7 @@ export class Fighter extends Spacecraft {
 
     lightenColor(color) {
         // Simple color lightening
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

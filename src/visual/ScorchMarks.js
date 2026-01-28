@@ -33,9 +33,9 @@ export class ScorchMark {
         );
 
         const alpha = this.intensity / this.maxIntensity;
-        gradient.addColorStop(0, `rgba(20, 10, 5, ${0.6 * alpha})`);
-        gradient.addColorStop(0.5, `rgba(15, 8, 3, ${0.4 * alpha})`);
-        gradient.addColorStop(1, `rgba(0, 0, 0, 0)`);
+        gradient.addColorStop(0, `rgba(180, 180, 180, ${0.4 * alpha})`);
+        gradient.addColorStop(0.5, `rgba(190, 190, 190, ${0.25 * alpha})`);
+        gradient.addColorStop(1, `rgba(240, 240, 240, 0)`);
 
         ctx.fillStyle = gradient;
         ctx.fillRect(

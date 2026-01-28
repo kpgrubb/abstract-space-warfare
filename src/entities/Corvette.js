@@ -39,7 +39,7 @@ export class Corvette extends Spacecraft {
         this.ewActive = true;         // EW systems online
 
         // Team colors - distinct purple/violet for EW ships
-        this.color = team === 'friendly' ? '#9966ff' : '#ff6699';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Hardpoints: Light defensive armament only
         // EW corvettes focus on support, not damage
@@ -71,12 +71,12 @@ export class Corvette extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 14;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Main hull - sleek elongated shape
         ctx.beginPath();
@@ -117,9 +117,9 @@ export class Corvette extends Spacecraft {
 
         // EW emitter pods (pulsing)
         const ewPulse = Math.sin(Date.now() * 0.006) * 0.5 + 0.5;
-        ctx.fillStyle = `rgba(150, 100, 255, ${0.5 + ewPulse * 0.5})`;
-        ctx.shadowColor = '#9966ff';
-        ctx.shadowBlur = 8 + ewPulse * 6;
+        ctx.fillStyle = `rgba(80, 80, 80, ${0.5 + ewPulse * 0.5})`;
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 6 + ewPulse * 4;
 
         // Left emitter
         ctx.beginPath();
@@ -139,9 +139,9 @@ export class Corvette extends Spacecraft {
         ctx.fill();
 
         // Engine glow
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = '#6644cc';
-        ctx.fillStyle = '#8866ee';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
         ctx.globalAlpha = 0.8;
         ctx.beginPath();
         ctx.ellipse(-this.size * 0.82, 0, this.size * 0.1, this.size * 0.08, 0, 0, Math.PI * 2);
@@ -174,7 +174,7 @@ export class Corvette extends Spacecraft {
 
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.ewJammingRange, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(150, 100, 255, ${alpha})`;
+        ctx.strokeStyle = `rgba(80, 80, 80, ${alpha})`;
         ctx.lineWidth = 1;
         ctx.setLineDash([5, 10]);
         ctx.stroke();
@@ -185,9 +185,9 @@ export class Corvette extends Spacecraft {
             this.x, this.y, 0,
             this.x, this.y, this.ewJammingRange
         );
-        gradient.addColorStop(0, `rgba(150, 100, 255, ${alpha * 0.3})`);
-        gradient.addColorStop(0.5, `rgba(150, 100, 255, ${alpha * 0.15})`);
-        gradient.addColorStop(1, 'rgba(150, 100, 255, 0)');
+        gradient.addColorStop(0, `rgba(80, 80, 80, ${alpha * 0.3})`);
+        gradient.addColorStop(0.5, `rgba(80, 80, 80, ${alpha * 0.15})`);
+        gradient.addColorStop(1, 'rgba(80, 80, 80, 0)');
 
         ctx.fillStyle = gradient;
         ctx.fill();
@@ -196,7 +196,7 @@ export class Corvette extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

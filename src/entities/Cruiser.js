@@ -36,7 +36,7 @@ export class Cruiser extends Spacecraft {
         this.shieldRegenDelay = 3;
 
         // Team colors
-        this.color = team === 'friendly' ? '#0099ff' : '#ff6633';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Missile ammo: Medium/large ship
         this.missileAmmo = 8;
@@ -64,12 +64,12 @@ export class Cruiser extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 18;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Main hull - angular wedge shape
         ctx.beginPath();
@@ -114,9 +114,9 @@ export class Cruiser extends Spacecraft {
         ctx.fill();
 
         // Engine array
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = '#0066ff';
-        ctx.fillStyle = '#0088ff';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
         ctx.globalAlpha = 0.8;
         ctx.fillRect(-this.size * 0.85, -this.size * 0.25, this.size * 0.12, this.size * 0.15);
         ctx.fillRect(-this.size * 0.85, this.size * 0.1, this.size * 0.12, this.size * 0.15);
@@ -131,7 +131,7 @@ export class Cruiser extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

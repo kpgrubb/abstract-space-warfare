@@ -11,7 +11,7 @@ export class Renderer {
         this.height = 0;
 
         // Rendering settings
-        this.backgroundColor = '#0a0a0a';
+        this.backgroundColor = '#f0f0f0';
         this.glowEnabled = true;
     }
 

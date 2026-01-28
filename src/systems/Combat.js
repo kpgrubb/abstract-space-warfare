@@ -270,7 +270,7 @@ export class CombatSystem {
                         midY + (Math.random() - 0.5) * 20,
                         (Math.random() - 0.5) * 30,
                         (Math.random() - 0.5) * 30,
-                        '#00ff88',
+                        '#555555',
                         3 + Math.random() * 2,
                         0.4 + Math.random() * 0.3
                     );

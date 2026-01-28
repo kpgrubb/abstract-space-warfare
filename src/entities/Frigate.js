@@ -30,7 +30,7 @@ export class Frigate extends Spacecraft {
         this.tacticalRole = 'escort';
 
         // Team colors
-        this.color = team === 'friendly' ? '#00bbff' : '#ff5544';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Hardpoints: 2 forward ballistic + 2 side lasers
         this.addHardpoint(9, -2, 'ballistic');   // Left forward
@@ -53,12 +53,12 @@ export class Frigate extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 15;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Main hull - elongated hexagon
         ctx.beginPath();
@@ -88,9 +88,9 @@ export class Frigate extends Spacecraft {
         ctx.fill();
 
         // Engine glow
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = '#0088ff';
-        ctx.fillStyle = '#00aaff';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
         ctx.globalAlpha = 0.8;
         ctx.fillRect(-this.size * 0.85, -this.size * 0.2, this.size * 0.15, this.size * 0.4);
 
@@ -101,7 +101,7 @@ export class Frigate extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

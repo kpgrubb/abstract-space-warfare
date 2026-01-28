@@ -45,7 +45,7 @@ export class Destroyer extends Spacecraft {
         this.lastInterceptPos = null;
 
         // Team colors - teal/cyan for escort ships
-        this.color = team === 'friendly' ? '#00ccaa' : '#ff8844';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Missile ammo: Medium ship - torpedo boat
         this.missileAmmo = 6;
@@ -104,7 +104,7 @@ export class Destroyer extends Spacecraft {
                 particleSystem.createImpact(
                     missile.x,
                     missile.y,
-                    '#ffaa00',
+                    '#333333',
                     8
                 );
             }
@@ -142,12 +142,12 @@ export class Destroyer extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 16;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Main hull - sleek angular shape
         ctx.beginPath();
@@ -168,7 +168,7 @@ export class Destroyer extends Spacecraft {
         ctx.stroke();
 
         // Forward torpedo tubes
-        ctx.fillStyle = '#333344';
+        ctx.fillStyle = '#cccccc';
         ctx.fillRect(this.size * 0.5, -this.size * 0.15, this.size * 0.3, this.size * 0.1);
         ctx.fillRect(this.size * 0.5, this.size * 0.05, this.size * 0.3, this.size * 0.1);
 
@@ -183,7 +183,7 @@ export class Destroyer extends Spacecraft {
 
         // PD turret barrels (pulsing when active)
         const pdPulse = Math.sin(Date.now() * 0.01) * 0.3 + 0.7;
-        ctx.fillStyle = this.pdActive ? `rgba(255, 200, 100, ${pdPulse})` : '#444444';
+        ctx.fillStyle = this.pdActive ? `rgba(80, 80, 80, ${pdPulse})` : '#aaaaaa';
         ctx.fillRect(this.size * 0.1, -this.size * 0.55, this.size * 0.15, this.size * 0.04);
         ctx.fillRect(this.size * 0.1, this.size * 0.51, this.size * 0.15, this.size * 0.04);
 
@@ -200,9 +200,9 @@ export class Destroyer extends Spacecraft {
         ctx.fill();
 
         // Engine array (2 engines)
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = '#00aacc';
-        ctx.fillStyle = '#00ddff';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
         ctx.globalAlpha = 0.8;
         ctx.beginPath();
         ctx.ellipse(-this.size * 0.72, -this.size * 0.15, this.size * 0.08, this.size * 0.06, 0, 0, Math.PI * 2);
@@ -238,7 +238,7 @@ export class Destroyer extends Spacecraft {
 
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.pointDefenseRange, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255, 200, 100, ${alpha})`;
+        ctx.strokeStyle = `rgba(80, 80, 80, ${alpha})`;
         ctx.lineWidth = 1;
         ctx.setLineDash([3, 8]);
         ctx.stroke();
@@ -248,7 +248,7 @@ export class Destroyer extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

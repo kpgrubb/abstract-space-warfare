@@ -13,7 +13,7 @@ export const WeaponConfig = {
         range: 280,
         cooldown: 1.2,   // Slower fire rate (was 0.5)
         visual: 'tracer',
-        color: '#ffaa00',
+        color: '#1a1a1a',
         size: 2
     },
 
@@ -23,7 +23,7 @@ export const WeaponConfig = {
         range: 100,      // Very short range - knife fight weapon (was 150)
         cooldown: 1.8,   // Slower fire rate (was 0.8)
         visual: 'beam',
-        color: '#00ff44',
+        color: '#222222',
         beamDuration: 0.15,
         size: 1.5
     },
@@ -34,7 +34,7 @@ export const WeaponConfig = {
         range: 400,
         cooldown: 5.0,   // Much slower fire rate (was 2.5)
         visual: 'torpedo',
-        color: '#ff4444',
+        color: '#111111',
         size: 4,
         hasExhaust: true
     },
@@ -45,7 +45,7 @@ export const WeaponConfig = {
         range: 150,      // Short range area denial
         cooldown: 2.5,   // Slower fire rate (was 1.2)
         visual: 'flak',
-        color: '#ffcc00',
+        color: '#1a1a1a',
         size: 3,
         burstCount: 5,   // Fires multiple pellets
         spread: 0.4      // Radians spread angle

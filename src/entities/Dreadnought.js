@@ -34,7 +34,7 @@ export class Dreadnought extends Spacecraft {
         this.shieldRegenDelay = 6;
 
         // Team colors - darker, more imposing
-        this.color = team === 'friendly' ? '#003399' : '#cc2200';
+        this.color = team === 'friendly' ? '#2a2015' : '#152030';
 
         // Missile ammo: Massive capital ship
         this.missileAmmo = 16;
@@ -139,12 +139,12 @@ export class Dreadnought extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Massive neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 35;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+        ctx.shadowBlur = 12;
 
         // Main hull - elongated wedge with multiple sections
         ctx.beginPath();
@@ -169,7 +169,7 @@ export class Dreadnought extends Spacecraft {
         ctx.stroke();
 
         // Spinal beam channel (central groove)
-        ctx.fillStyle = '#111133';
+        ctx.fillStyle = '#cccccc';
         ctx.beginPath();
         ctx.moveTo(this.size * 0.85, 0);
         ctx.lineTo(this.size * 0.2, -this.size * 0.08);
@@ -182,9 +182,9 @@ export class Dreadnought extends Spacecraft {
         // Spinal beam charging glow
         if (this.spinalBeamCharging) {
             const chargeProgress = this.spinalBeamCharge / this.spinalBeamChargeTime;
-            ctx.fillStyle = `rgba(255, 100, 50, ${chargeProgress * 0.8})`;
-            ctx.shadowColor = '#ff6633';
-            ctx.shadowBlur = 20 + chargeProgress * 30;
+            ctx.fillStyle = `rgba(0, 0, 0, ${chargeProgress * 0.8})`;
+            ctx.shadowColor = '#000000';
+            ctx.shadowBlur = 10 + chargeProgress * 15;
             ctx.beginPath();
             ctx.moveTo(this.size * 0.8, 0);
             ctx.lineTo(this.size * 0.15, -this.size * 0.06);
@@ -195,8 +195,8 @@ export class Dreadnought extends Spacecraft {
             ctx.fill();
         }
 
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 25;
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Armored prow sections
         ctx.fillStyle = this.lightenColor(renderColor);
@@ -246,10 +246,10 @@ export class Dreadnought extends Spacecraft {
         ctx.fill();
 
         // Engine bank (8 large engines)
-        ctx.shadowBlur = 25;
-        ctx.shadowColor = '#0055cc';
-        ctx.fillStyle = '#0088ff';
-        ctx.globalAlpha = 0.9;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
+        ctx.globalAlpha = 0.6;
         const engineY = [-0.28, -0.18, -0.08, 0.02, -0.02, 0.08, 0.18, 0.28];
         for (let i = 0; i < engineY.length; i++) {
             const ey = engineY[i];
@@ -274,7 +274,7 @@ export class Dreadnought extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

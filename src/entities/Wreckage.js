@@ -129,7 +129,7 @@ export class Wreckage {
             ctx.globalAlpha = alpha * 0.7;
 
             // Subtle glow for hot metal
-            ctx.shadowColor = '#ff4400';
+            ctx.shadowColor = '#555555';
             ctx.shadowBlur = 5 * alpha;
 
             // Draw fragment shape
@@ -156,9 +156,9 @@ export class Wreckage {
         if (this.lifetime > this.maxLifetime * 0.5) {
             const glowIntensity = (this.lifetime / this.maxLifetime - 0.5) * 2;
             ctx.globalAlpha = glowIntensity * 0.4;
-            ctx.shadowColor = '#ff6600';
-            ctx.shadowBlur = 15;
-            ctx.fillStyle = '#ff4400';
+            ctx.shadowColor = '#555555';
+            ctx.shadowBlur = 10;
+            ctx.fillStyle = '#666666';
             ctx.beginPath();
             ctx.arc(0, 0, this.size * 0.15, 0, Math.PI * 2);
             ctx.fill();

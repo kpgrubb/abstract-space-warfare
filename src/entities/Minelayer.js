@@ -34,7 +34,7 @@ export class Minelayer extends Spacecraft {
         this.shieldRegenDelay = 3;
 
         // Team colors
-        this.color = team === 'friendly' ? '#88aa00' : '#ff8800';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Mine deployment system
         this.mineCapacity = 8;
@@ -111,12 +111,12 @@ export class Minelayer extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 15;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Main hull - boxy utilitarian shape
         ctx.beginPath();
@@ -135,7 +135,7 @@ export class Minelayer extends Spacecraft {
         ctx.stroke();
 
         // Mine bay doors (rear)
-        ctx.fillStyle = '#222233';
+        ctx.fillStyle = '#cccccc';
         ctx.fillRect(-this.size * 0.55, -this.size * 0.25, this.size * 0.3, this.size * 0.5);
 
         // Mine indicators (show remaining)
@@ -153,11 +153,11 @@ export class Minelayer extends Spacecraft {
         for (let i = 0; i < mineSlots.length; i++) {
             const slot = mineSlots[i];
             if (i < this.minesRemaining) {
-                ctx.fillStyle = '#ffaa00';  // Mine present
-                ctx.shadowBlur = 5;
-                ctx.shadowColor = '#ffaa00';
+                ctx.fillStyle = '#555555';  // Mine present
+                ctx.shadowBlur = 4;
+                ctx.shadowColor = 'rgba(0,0,0,0.3)';
             } else {
-                ctx.fillStyle = '#333333';  // Empty slot
+                ctx.fillStyle = '#bbbbbb';  // Empty slot
                 ctx.shadowBlur = 0;
             }
             ctx.beginPath();
@@ -165,8 +165,8 @@ export class Minelayer extends Spacecraft {
             ctx.fill();
         }
 
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = renderColor;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
 
         // Bridge
         ctx.fillStyle = this.lightenColor(renderColor);
@@ -183,9 +183,9 @@ export class Minelayer extends Spacecraft {
         ctx.fill();
 
         // Engine glow
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = '#00aa44';
-        ctx.fillStyle = '#00cc66';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
         ctx.globalAlpha = 0.8;
         ctx.beginPath();
         ctx.ellipse(-this.size * 0.62, 0, this.size * 0.1, this.size * 0.15, 0, 0, Math.PI * 2);
@@ -201,7 +201,7 @@ export class Minelayer extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

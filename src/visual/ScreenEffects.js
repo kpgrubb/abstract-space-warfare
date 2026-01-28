@@ -13,7 +13,7 @@ export class ScreenEffects {
 
         // Flash effects
         this.flashIntensity = 0;
-        this.flashColor = '#ffffff';
+        this.flashColor = '#000000';
         this.flashDecay = 3.0;
 
         // Vignette
@@ -30,7 +30,7 @@ export class ScreenEffects {
     /**
      * Trigger flash effect
      */
-    flash(intensity, color = '#ffffff') {
+    flash(intensity, color = '#000000') {
         this.flashIntensity = Math.max(this.flashIntensity, intensity);
         this.flashColor = color;
     }

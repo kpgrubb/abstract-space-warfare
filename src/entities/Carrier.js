@@ -37,7 +37,7 @@ export class Carrier extends Spacecraft {
         this.shieldRegenDelay = 4;
 
         // Team colors
-        this.color = team === 'friendly' ? '#0077dd' : '#ff7722';
+        this.color = team === 'friendly' ? '#3a3025' : '#253040';
 
         // Missile ammo: Large ship - heavy missile platform
         this.missileAmmo = 12;
@@ -175,12 +175,12 @@ export class Carrier extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 20;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Main hull - wide rectangular with angled bow
         ctx.beginPath();
@@ -199,8 +199,8 @@ export class Carrier extends Spacecraft {
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Hangar bay (dark rectangle in center)
-        ctx.fillStyle = '#111122';
+        // Hangar bay (light rectangle in center)
+        ctx.fillStyle = '#cccccc';
         ctx.fillRect(-this.size * 0.4, -this.size * 0.3, this.size * 0.6, this.size * 0.6);
         ctx.strokeStyle = this.lightenColor(renderColor);
         ctx.lineWidth = 1;
@@ -209,19 +209,19 @@ export class Carrier extends Spacecraft {
         // Hangar lighting strips (pulse when launching)
         if (this.isLaunching) {
             const pulse = Math.sin(this.launchAnimTimer * 20) * 0.3 + 0.7;
-            ctx.fillStyle = `rgba(255, 200, 100, ${pulse})`;
-            ctx.shadowColor = '#ffcc66';
-            ctx.shadowBlur = 15;
+            ctx.fillStyle = `rgba(0, 0, 0, ${pulse * 0.6})`;
+            ctx.shadowColor = '#333333';
+            ctx.shadowBlur = 8;
         } else {
-            ctx.fillStyle = '#00ffaa';
+            ctx.fillStyle = '#555555';
             ctx.shadowBlur = 0;
         }
         ctx.globalAlpha = 0.5;
         ctx.fillRect(-this.size * 0.35, -this.size * 0.25, this.size * 0.5, this.size * 0.02);
         ctx.fillRect(-this.size * 0.35, this.size * 0.23, this.size * 0.5, this.size * 0.02);
         ctx.globalAlpha = 1.0;
-        ctx.shadowBlur = 20;
-        ctx.shadowColor = renderColor;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
 
         // Missile pods (port and starboard)
         ctx.fillStyle = this.lightenColor(renderColor);
@@ -239,10 +239,10 @@ export class Carrier extends Spacecraft {
         ctx.fill();
 
         // Engine array (4 engines)
-        ctx.shadowBlur = 15;
-        ctx.shadowColor = '#0055cc';
-        ctx.fillStyle = '#0077ff';
-        ctx.globalAlpha = 0.8;
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
+        ctx.globalAlpha = 0.6;
         const engineY = [-0.45, -0.15, 0.15, 0.45];
         for (const ey of engineY) {
             ctx.beginPath();
@@ -260,7 +260,7 @@ export class Carrier extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

@@ -21,32 +21,32 @@ export class AtmosphereSystem {
             'asteroid_field'   // Brownish with scattered rocks
         ];
 
-        // Color schemes for different nebulae
+        // Color schemes - subtle grey textures on white background
         this.nebulaColors = {
             'nebula_purple': {
-                primary: 'rgba(120, 40, 150, 0.15)',
-                secondary: 'rgba(200, 80, 120, 0.1)',
-                stars: '#ffccff'
+                primary: 'rgba(180, 170, 190, 0.12)',
+                secondary: 'rgba(190, 180, 185, 0.08)',
+                stars: '#bbbbbb'
             },
             'nebula_blue': {
-                primary: 'rgba(30, 60, 150, 0.2)',
-                secondary: 'rgba(60, 120, 180, 0.1)',
-                stars: '#aaddff'
+                primary: 'rgba(170, 175, 190, 0.15)',
+                secondary: 'rgba(180, 185, 195, 0.08)',
+                stars: '#aaaaaa'
             },
             'nebula_green': {
-                primary: 'rgba(20, 100, 80, 0.15)',
-                secondary: 'rgba(40, 150, 120, 0.1)',
-                stars: '#aaffcc'
+                primary: 'rgba(175, 185, 175, 0.12)',
+                secondary: 'rgba(180, 190, 180, 0.08)',
+                stars: '#bbbbbb'
             },
             'deep_space': {
-                primary: 'rgba(0, 0, 20, 0)',
-                secondary: 'rgba(0, 0, 0, 0)',
-                stars: '#ffffff'
+                primary: 'rgba(200, 200, 200, 0)',
+                secondary: 'rgba(200, 200, 200, 0)',
+                stars: '#cccccc'
             },
             'asteroid_field': {
-                primary: 'rgba(60, 40, 20, 0.1)',
-                secondary: 'rgba(80, 60, 40, 0.08)',
-                stars: '#ffddaa'
+                primary: 'rgba(185, 180, 175, 0.1)',
+                secondary: 'rgba(190, 185, 180, 0.06)',
+                stars: '#aaaaaa'
             }
         };
     }
@@ -190,7 +190,7 @@ export class AtmosphereSystem {
             );
             gradient.addColorStop(0, colors.primary);
             gradient.addColorStop(0.5, colors.secondary);
-            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            gradient.addColorStop(1, 'rgba(240, 240, 240, 0)');
 
             ctx.fillStyle = gradient;
             ctx.fillRect(

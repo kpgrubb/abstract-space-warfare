@@ -1,37 +1,38 @@
 /**
- * Colors.js - Neon color palette definitions
+ * Colors.js - Shadow play color palette definitions
+ * Dark silhouettes on light background
  */
 
 export const Colors = {
-    // Friendly units (blue/cyan)
-    FRIENDLY_PRIMARY: '#00d4ff',      // Bright cyan
-    FRIENDLY_SECONDARY: '#0088ff',    // Electric blue
-    FRIENDLY_ACCENT: '#00ffff',       // Pure cyan
+    // Friendly units (warm dark grey)
+    FRIENDLY_PRIMARY: '#4a4035',
+    FRIENDLY_SECONDARY: '#5a5045',
+    FRIENDLY_ACCENT: '#3a3025',
 
-    // Enemy units (red/orange)
-    ENEMY_PRIMARY: '#ff3366',         // Neon pink-red
-    ENEMY_SECONDARY: '#ff6600',       // Bright orange
-    ENEMY_ACCENT: '#ff0044',          // Pure red
+    // Enemy units (cool dark grey)
+    ENEMY_PRIMARY: '#354050',
+    ENEMY_SECONDARY: '#455060',
+    ENEMY_ACCENT: '#253040',
 
     // Projectiles and effects
-    PROJECTILE_FRIENDLY: '#66e0ff',   // Light cyan
-    PROJECTILE_ENEMY: '#ff8899',      // Light red
-    EXPLOSION: '#ffaa00',             // Bright orange
-    IMPACT: '#ffffff',                // White flash
+    PROJECTILE_FRIENDLY: '#2a2520',
+    PROJECTILE_ENEMY: '#202530',
+    EXPLOSION: '#1a1a1a',
+    IMPACT: '#000000',
 
-    // UI and HUD
-    UI_PRIMARY: '#00d4ff',            // Cyan
-    UI_SECONDARY: '#0088ff',          // Blue
-    UI_TEXT: '#ffffff',               // White
+    // UI and HUD (kept dark-themed)
+    UI_PRIMARY: '#00d4ff',
+    UI_SECONDARY: '#0088ff',
+    UI_TEXT: '#ffffff',
 
     // Background
-    BACKGROUND: '#0a0a0a',            // Near black
-    GRID: '#1a1a1a',                  // Dark gray
+    BACKGROUND: '#f0f0f0',
+    GRID: '#e0e0e0',
 
     // Particles
-    SMOKE: '#555555',                 // Gray
-    DEBRIS: '#888888',                // Light gray
-    SPARK: '#ffff88',                 // Yellow-white
+    SMOKE: '#aaaaaa',
+    DEBRIS: '#666666',
+    SPARK: '#333333',
 };
 
 /**

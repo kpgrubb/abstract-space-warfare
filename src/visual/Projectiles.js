@@ -167,8 +167,8 @@ export class Projectile {
         ctx.globalAlpha = alpha;
 
         // Outer glow
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 20;
+        ctx.shadowColor = 'rgba(0,0,0,0.3)';
+        ctx.shadowBlur = 8;
         ctx.strokeStyle = this.color;
         ctx.lineWidth = 4;
         ctx.beginPath();
@@ -177,8 +177,8 @@ export class Projectile {
         ctx.stroke();
 
         // Inner bright core
-        ctx.shadowBlur = 10;
-        ctx.strokeStyle = '#ffffff';
+        ctx.shadowBlur = 6;
+        ctx.strokeStyle = '#000000';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(this.startX, this.startY);
@@ -197,7 +197,7 @@ export class Projectile {
         // Exhaust trail
         if (this.trailPositions.length > 1) {
             ctx.globalAlpha = 0.6;
-            ctx.strokeStyle = '#ff6600';
+            ctx.strokeStyle = '#333333';
             ctx.lineWidth = 3;
             ctx.beginPath();
             ctx.moveTo(this.trailPositions[0].x, this.trailPositions[0].y);
@@ -216,9 +216,9 @@ export class Projectile {
         ctx.translate(this.x, this.y);
         ctx.rotate(this.rotation);
 
-        // Neon glow
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 12;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 6;
 
         // Body (elongated shape)
         ctx.fillStyle = this.color;
@@ -231,9 +231,9 @@ export class Projectile {
         ctx.fill();
 
         // Engine glow
-        ctx.shadowColor = '#ff8800';
-        ctx.shadowBlur = 15;
-        ctx.fillStyle = '#ffaa00';
+        ctx.shadowColor = '#222222';
+        ctx.shadowBlur = 8;
+        ctx.fillStyle = '#333333';
         ctx.beginPath();
         ctx.arc(-this.size * 0.4, 0, this.size * 0.25, 0, Math.PI * 2);
         ctx.fill();

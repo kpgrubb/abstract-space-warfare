@@ -32,7 +32,7 @@ export class Interceptor extends Spacecraft {
         this.maxShields = 0;
 
         // Team colors - bright and fast-looking
-        this.color = team === 'friendly' ? '#00ffdd' : '#ff3366';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Hardpoints: Light but rapid-fire
         this.addHardpoint(5, -2, 'laser');    // Left nose laser
@@ -54,11 +54,11 @@ export class Interceptor extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
         ctx.shadowBlur = 10;
 
         // Main hull - needle shape
@@ -86,9 +86,9 @@ export class Interceptor extends Spacecraft {
         ctx.fill();
 
         // Engine glow (single powerful engine)
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = '#00ffaa';
-        ctx.fillStyle = '#00ffcc';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
         ctx.globalAlpha = 0.9;
         ctx.beginPath();
         ctx.ellipse(-this.size * 0.5, 0, this.size * 0.15, this.size * 0.08, 0, 0, Math.PI * 2);
@@ -101,7 +101,7 @@ export class Interceptor extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

@@ -35,7 +35,7 @@ export class RepairTender extends Spacecraft {
         this.shieldRegenDelay = 3;
 
         // Team colors - support vessel green
-        this.color = team === 'friendly' ? '#00cc88' : '#ff9944';
+        this.color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Repair system
         this.repairRange = 120;      // Range to repair friendlies
@@ -143,12 +143,12 @@ export class RepairTender extends Spacecraft {
             const pulse = Math.sin(Date.now() * 0.008) * 0.5 + 0.5;
             renderColor = `rgba(255, 220, 100, ${0.8 + pulse * 0.2})`;
         } else if (this.showDamageFlash) {
-            renderColor = '#ffffff';
+            renderColor = '#000000';
         }
 
-        // Neon glow
-        ctx.shadowColor = renderColor;
-        ctx.shadowBlur = 18;
+        // Dark shadow
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 10;
 
         // Main hull - wide support vessel
         ctx.beginPath();
@@ -189,12 +189,12 @@ export class RepairTender extends Spacecraft {
 
         // Repair arm tips (glowing if repairing)
         if (this.repairBeamActive) {
-            ctx.fillStyle = '#00ff88';
-            ctx.shadowColor = '#00ff88';
-            ctx.shadowBlur = 15;
+            ctx.fillStyle = '#444444';
+            ctx.shadowColor = 'rgba(0,0,0,0.4)';
+            ctx.shadowBlur = 8;
         } else {
-            ctx.fillStyle = '#006644';
-            ctx.shadowBlur = 5;
+            ctx.fillStyle = '#999999';
+            ctx.shadowBlur = 4;
         }
         ctx.beginPath();
         ctx.arc(this.size * 0.1, -this.size * 0.7, this.size * 0.08, 0, Math.PI * 2);
@@ -203,18 +203,18 @@ export class RepairTender extends Spacecraft {
         ctx.arc(this.size * 0.1, this.size * 0.7, this.size * 0.08, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.shadowBlur = 18;
-        ctx.shadowColor = renderColor;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
 
         // Central repair bay
-        ctx.fillStyle = '#113322';
+        ctx.fillStyle = '#cccccc';
         ctx.fillRect(-this.size * 0.2, -this.size * 0.25, this.size * 0.35, this.size * 0.5);
-        ctx.strokeStyle = '#00ff88';
+        ctx.strokeStyle = '#888888';
         ctx.lineWidth = 1;
         ctx.strokeRect(-this.size * 0.2, -this.size * 0.25, this.size * 0.35, this.size * 0.5);
 
         // Medical cross symbol
-        ctx.fillStyle = '#00ff88';
+        ctx.fillStyle = '#666666';
         ctx.globalAlpha = 0.7;
         ctx.fillRect(-this.size * 0.08, -this.size * 0.18, this.size * 0.1, this.size * 0.36);
         ctx.fillRect(-this.size * 0.15, -this.size * 0.05, this.size * 0.24, this.size * 0.1);
@@ -235,9 +235,9 @@ export class RepairTender extends Spacecraft {
         ctx.fill();
 
         // Engine glow (twin engines)
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = '#00aa66';
-        ctx.fillStyle = '#00cc88';
+        ctx.shadowBlur = 6;
+        ctx.shadowColor = '#333333';
+        ctx.fillStyle = '#333333';
         ctx.globalAlpha = 0.8;
         ctx.beginPath();
         ctx.ellipse(-this.size * 0.58, -this.size * 0.15, this.size * 0.08, this.size * 0.1, 0, 0, Math.PI * 2);
@@ -269,10 +269,10 @@ export class RepairTender extends Spacecraft {
         // Pulsing repair beam
         const pulse = Math.sin(Date.now() * 0.01) * 0.3 + 0.7;
 
-        ctx.strokeStyle = `rgba(0, 255, 136, ${pulse * 0.6})`;
+        ctx.strokeStyle = `rgba(60, 60, 60, ${pulse * 0.6})`;
         ctx.lineWidth = 3;
-        ctx.shadowColor = '#00ff88';
-        ctx.shadowBlur = 10;
+        ctx.shadowColor = 'rgba(0,0,0,0.3)';
+        ctx.shadowBlur = 6;
 
         ctx.beginPath();
         ctx.moveTo(this.x, this.y);
@@ -286,7 +286,7 @@ export class RepairTender extends Spacecraft {
             const px = this.x + (target.x - this.x) * t;
             const py = this.y + (target.y - this.y) * t;
 
-            ctx.fillStyle = `rgba(0, 255, 136, ${(1 - t) * 0.8})`;
+            ctx.fillStyle = `rgba(60, 60, 60, ${(1 - t) * 0.8})`;
             ctx.beginPath();
             ctx.arc(px, py, 3, 0, Math.PI * 2);
             ctx.fill();
@@ -296,7 +296,7 @@ export class RepairTender extends Spacecraft {
     }
 
     lightenColor(color) {
-        if (color.startsWith('rgba')) return 'rgba(255, 255, 255, 0.8)';
-        return '#ffffff';
+        if (color.startsWith('rgba')) return 'rgba(0, 0, 0, 0.3)';
+        return '#888888';
     }
 }

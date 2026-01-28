@@ -224,7 +224,7 @@ export class ParticleSystem {
      * Create warp flash effect (when reinforcements start warping)
      */
     createWarpFlash(x, y, team) {
-        const color = team === 'friendly' ? '#00ffff' : '#ff6666';
+        const color = team === 'friendly' ? '#4a4035' : '#354050';
         const count = 15;
 
         for (let i = 0; i < count; i++) {
@@ -245,7 +245,7 @@ export class ParticleSystem {
             const vx = Math.cos(angle) * speed;
             const vy = Math.sin(angle) * speed;
 
-            this.createParticle(x, y, vx, vy, '#ffffff', 5, 0.3);
+            this.createParticle(x, y, vx, vy, '#000000', 5, 0.3);
         }
     }
 
@@ -253,7 +253,7 @@ export class ParticleSystem {
      * Create warp arrival effect (when ship finishes warping in)
      */
     createWarpArrival(x, y, team) {
-        const color = team === 'friendly' ? '#00ccff' : '#ff4444';
+        const color = team === 'friendly' ? '#4a4035' : '#354050';
 
         // Ring burst effect
         const ringCount = 20;
@@ -268,6 +268,6 @@ export class ParticleSystem {
         }
 
         // Bright center flash
-        this.createParticle(x, y, 0, 0, '#ffffff', 8, 0.2);
+        this.createParticle(x, y, 0, 0, '#000000', 8, 0.2);
     }
 }
